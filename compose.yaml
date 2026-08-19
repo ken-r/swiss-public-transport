@@ -1,0 +1,6 @@
+# compose.yml
+services:
+  app:
+    build: .
+    volumes:
+      - ./data:/app/data
