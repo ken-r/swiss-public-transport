@@ -13,6 +13,8 @@ This project uses [Docker](https://www.docker.com/) to keep the setup clean and 
 | **Dataset** | `GTFS_FP2026_20260815.zip` |
 | **Downloaded** | 2026-08-19 |
 
+High-level documentation about the GTFS dataset can be found [here](https://opentransportdata.swiss/en/cookbook/timetable-cookbook/gtfs/). Technical documenation, including the description of all data files and field descriptions can be found [here](https://gtfs.org/documentation/schedule/reference/).
+
 ## Setup
 
 1. Download the GTFS dataset from the link above.
