@@ -5,7 +5,8 @@ import time
 
 import pandas as pd
 
-from .config import GTFS_FILES, GTFS_FILE_NAMES, PROJECT_ROOT
+from .config import GTFS_FILE_NAMES, PROJECT_ROOT
+from .load import load_gtfs_file
 
 
 GTFS_SUMMARY_PATH = PROJECT_ROOT / "output" / "gtfs_summary.md"
@@ -30,21 +31,6 @@ def check_unique_column(df: pd.DataFrame, column_name: str) -> bool:
         print(f"Column {column_name} contains some values that appear more than once.")
 
     return n_unique_values == n_df
-
-def load_gtfs_file(file_name: str) -> pd.DataFrame:
-    """Load a GTFS file into a DataFrame.
-
-    Args:
-        file_name: The name of the GTFS file to load (e.g., "agency", "routes").
-
-    Returns:
-        A DataFrame containing the contents of the specified GTFS file.
-    """
-    if file_name not in GTFS_FILES:
-        raise ValueError(f"Invalid GTFS file name: {file_name}. Must be one of {GTFS_FILE_NAMES}.")
-
-    file_path = GTFS_FILES[file_name]
-    return pd.read_csv(file_path)
 
 @dataclass
 class GTFSSummary:
