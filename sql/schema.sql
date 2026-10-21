@@ -15,7 +15,7 @@ CREATE TABLE agency (
 CREATE TABLE calendar_dates (
     service_id text,
     date date,
-    exception_type integer,
+    exception_type integer
 );
 
 CREATE TABLE calendar (
