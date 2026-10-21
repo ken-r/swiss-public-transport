@@ -26,7 +26,18 @@ High-level documentation about the GTFS dataset can be found [here](https://open
 
 ## Run
 
+### GTFS Inspection Script
 Run the GTFS inspection script with
 ```bash
 docker compose run --rm app
 ```
+This summarizes the datasets and writes the output into `output/gtfs_summary.md`.
+
+### Create Local Database Tables
+Rename the example environment file `.env.example` to `.env` and replace the example PostgreSQL credentials with your own.
+Then create the tables with
+```bash
+make db-up
+make db-schema
+```
+This creates the empty tables, but does not load the GTFS data yet!
