@@ -41,3 +41,11 @@ make db-up
 make db-schema
 ```
 This creates the empty tables, but does not load the GTFS data yet!
+
+## Testing
+
+The unit tests check GTFS service-calendar rules using small example datasets. Run them in Docker with:
+
+```bash
+docker compose run --rm app python -m unittest discover -s tests -v
+```

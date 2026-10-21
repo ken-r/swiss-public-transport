@@ -17,5 +17,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  tests:
+    build: .
+    command: python -m unittest discover -s tests -v
+
 volumes:
   postgres_data:
