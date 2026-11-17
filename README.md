@@ -33,6 +33,20 @@ docker compose run --rm app
 ```
 This summarizes the datasets and writes the output into `output/gtfs_summary.md`.
 
+### Count Scheduled Departures on a Calendar Day
+
+Count regular scheduled passenger departures for a selected calendar day:
+
+```bash
+docker compose run --rm app python -m src.active_timetable --date 2026-11-11
+```
+
+The command prints a summary. It does not save a report yet.
+
+GTFS times count from 12 hours before local noon on the service date. During
+daylight saving time changes, a calendar day can be shorter or longer than
+24 hours, which is not handled yet by the current implementation.
+
 ### Create Local Database Tables
 Rename the example environment file `.env.example` to `.env` and replace the example PostgreSQL credentials with your own.
 Then create the tables with

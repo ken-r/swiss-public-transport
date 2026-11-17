@@ -1,5 +1,19 @@
 import pandas as pd
 
+
+def gtfs_time_to_seconds(times: pd.Series) -> pd.Series:
+    """Convert GTFS times to seconds since the service-day start.
+
+    Args:
+        times: Departure times HH:MM:SS.
+            Missing values are allowed; hours may exceed 23.
+
+    Returns:
+        Seconds since the service-day start with the same index as ``times``.
+
+    """
+    return pd.to_timedelta(times).dt.total_seconds().astype("Int64")
+
 def validate_trips_and_stop_times(
     trips: pd.DataFrame,
     stop_times: pd.DataFrame,
