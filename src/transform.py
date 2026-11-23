@@ -12,6 +12,11 @@ def gtfs_time_to_seconds(times: pd.Series) -> pd.Series:
         Seconds since the service-day start with the same index as ``times``.
 
     """
+    # pandas treats 22:60:00 as 23:00:00, hiding an invalid minute value.
+    # Reject invalid GTFS times before converting them to seconds.
+    valid = times.astype("string").str.fullmatch(r"\d{2,}:[0-5]\d:[0-5]\d")
+    if (~valid.fillna(True)).any():
+        raise ValueError("Departure times must be valid GTFS HH:MM:SS values.")
     return pd.to_timedelta(times).dt.total_seconds().astype("Int64")
 
 def validate_trips_and_stop_times(
