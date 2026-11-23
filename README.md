@@ -11,7 +11,7 @@ This project uses [Docker](https://www.docker.com/) to keep the setup clean and 
 | **Source** | Swiss Mobility Open Data Platform ([opentransportdata.swiss](https://opentransportdata.swiss)) |
 | **Link** | [GTFS 2026 dataset](https://data.opentransportdata.swiss/dataset/timetable-2026-gtfs2020/resource_permalink/gtfs_fp2026_20260815.zip) |
 | **Dataset** | `GTFS_FP2026_20260815.zip` |
-| **Downloaded** | 2026-08-19 |
+| **Download Date** | 2026-08-19 |
 
 High-level documentation about the GTFS dataset can be found [here](https://opentransportdata.swiss/en/cookbook/timetable-cookbook/gtfs/). Technical documenation, including the description of all data files and field descriptions can be found [here](https://gtfs.org/documentation/schedule/reference/).
 

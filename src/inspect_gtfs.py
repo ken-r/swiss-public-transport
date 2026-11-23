@@ -112,7 +112,8 @@ def write_markdown_report(gtfs_summaries: list[GTFSSummary], report_path: Path) 
     """
     report_path.parent.mkdir(parents=True, exist_ok=True)
     sections = [summary.to_markdown() for summary in gtfs_summaries]
-    report_path.write_text("# GTFS Dataset Summary\n\n" + "\n".join(sections), encoding="utf-8")
+    report = "\n".join(sections)
+    report_path.write_text(f"# GTFS Dataset Summary\n\n{report}", encoding="utf-8")
 
 
 def analyze_gtfs_files(file_names: list[str]) -> list[GTFSSummary]:
