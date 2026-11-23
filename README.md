@@ -33,15 +33,26 @@ docker compose run --rm app
 ```
 This summarizes the datasets and writes the output into `output/gtfs_summary.md`.
 
-### Count Scheduled Departures on a Calendar Day
+### Analyze Scheduled Departures
 
-Count regular scheduled passenger departures for a selected calendar day:
+Generate station statistics and plots for a calendar date:
 
 ```bash
-docker compose run --rm app python -m src.active_timetable --date 2026-11-11
+docker compose run --rm app python -m src.active_timetable --date 2026-11-11 --report-dir output/station_report
 ```
 
-The command prints a summary. It does not save a report yet.
+Redraw the plots from the saved CSVs without rereading the large GTFS files:
+
+```bash
+docker compose run --rm app python -m src.station_report --report-dir output/station_report
+```
+Outputs in `output/station_report/` include station and hourly CSVs plus PNG/SVG
+plots. The station summaries count departures from Swiss stations across all
+transport modes, including trips continuing abroad. They are not passenger
+numbers or actual traffic. The console total covers the whole GTFS feed.
+Plot generation needs internet access for
+the [swisstopo border](https://docs.geo.admin.ch/access-data/find-features.html).
+Omit `--report-dir` to print totals only.
 
 GTFS times count from 12 hours before local noon on the service date. During
 daylight saving time changes, a calendar day can be shorter or longer than

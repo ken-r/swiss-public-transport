@@ -1,4 +1,4 @@
-"""Select regular scheduled passenger departures for a calendar date."""
+"""Select regular scheduled departures for a calendar date."""
 
 import argparse
 import logging
@@ -232,7 +232,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--date", required=True, type=date.fromisoformat,
                         help="Calendar date (YYYY-MM-DD)")
-    calendar_date = parser.parse_args().date
+    parser.add_argument("--report-dir", type=str,
+                        help="Save Swiss station statistics and charts here")
+    args = parser.parse_args()
+    calendar_date = args.date
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(message)s",
@@ -272,6 +275,11 @@ def main() -> None:
         "Counting departures",
     )
     totals = {d: 0 for d in trips_by_date}
+    report = None
+    if args.report_dir:
+        from .station_report import StationReport
+
+        report = StationReport.from_gtfs()
     for chunk in iter_active_stop_times(chunks, active_trips):
         departures = calendar_day_departures(
             chunk, trips_by_date, calendar_date, frequency_ids,
@@ -279,11 +287,16 @@ def main() -> None:
         )
         for service_date, count in departures["service_date"].value_counts().items():
             totals[date.fromisoformat(service_date)] += count
+        if report is not None:
+            report.add(departures)
     logger.info(f"Calendar date: {calendar_date}")
     for service_date, count in totals.items():
         logger.info(f"Departures from {service_date} service: {count:,}")
-    logger.info(f"Total regular scheduled passenger departures: {sum(totals.values()):,}")
+    logger.info(f"Total regular scheduled departures in GTFS feed: {sum(totals.values()):,}")
     logger.info("Frequency-based trips and special pickup types are excluded.")
+    if report is not None:
+        report.save(args.report_dir, calendar_date)
+        logger.info(f"Departures from Swiss stations: {sum(report.counts.values()):,}")
 
 
 if __name__ == "__main__":

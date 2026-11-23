@@ -30,7 +30,10 @@ ANALYSIS_GTFS_COLUMNS = {
         "trip_id", "stop_id", "stop_sequence", "arrival_time",
         "departure_time", "pickup_type",
     ],
-    "stops": ["stop_id", "stop_name", "location_type", "parent_station"],
+    "stops": [
+        "stop_id", "stop_name", "stop_lat", "stop_lon",
+        "location_type", "parent_station",
+    ],
     "routes": ["route_id", "route_short_name", "route_type"],
 }
 
@@ -65,6 +68,8 @@ ANALYSIS_GTFS_DTYPES = {
     "stops": {
         "stop_id": "string",
         "stop_name": "string",
+        "stop_lat": "float64",
+        "stop_lon": "float64",
         "location_type": "Int8",
         "parent_station": "string",
     },
